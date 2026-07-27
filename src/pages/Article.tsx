@@ -62,7 +62,7 @@ export function Article() {
 
           <p>
             <span className="drop-cap">{paragraphs[0].charAt(0)}</span>
-            {paragraphs[0].slice(1)}
+            <span dangerouslySetInnerHTML={{__html: paragraphs[0].slice(1)}} />
           </p>
           
           {paragraphs.slice(1).map((p, i) => {
@@ -70,7 +70,7 @@ export function Article() {
             if (i === 1) {
               return (
                 <div key={i} className="my-10">
-                  <p className="mb-6">{p.replace(/\*(.*?)\*/g, '<span class="font-bold">$1</span>')}</p>
+                  <p className="mb-6" dangerouslySetInnerHTML={{__html: p.replace(/\*(.*?)\*/g, '<span class="font-bold">$1</span>')}}></p>
                   
                   {article.imagePlaceholder && (
                     <figure className="border border-dark/20 p-2 bg-paper my-10 transform -rotate-1 shadow-sm">
@@ -97,11 +97,12 @@ export function Article() {
               const parts = p.split('catalyst');
               return (
                 <p key={i}>
-                  {parts[0]}<span className="hand-drawn-underline font-bold">catalyst</span>{parts[1]}
+                  <span dangerouslySetInnerHTML={{__html: parts[0]}} />
+                  <span className="hand-drawn-underline font-bold">catalyst</span>
+                  <span dangerouslySetInnerHTML={{__html: parts[1]}} />
                 </p>
               );
             }
-
             return <p key={i} dangerouslySetInnerHTML={{__html: p.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold">$1</strong>').replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')}}></p>;
           })}
         </div>
